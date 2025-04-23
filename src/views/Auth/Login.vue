@@ -39,18 +39,27 @@ export default {
       }
 
       try {
+
         const response = await axios.post("http://localhost:8081/api/auth/login", {
           login: this.login,
-          password: this.password,
+          password: this.password
         });
-        localStorage.setItem("token", response.data.token);
-        this.$router.push("/messenger");
-      } catch (err) {
-        if (err.response && err.response.status === 401) {
-          this.error = "Неверное имя пользователя или пароль.";
+
+        if (response.data.token && response.data.user) {
+          localStorage.setItem("authToken", response.data.token);
+          localStorage.setItem("userId", response.data.user.id);
+          localStorage.setItem("userLogin", response.data.user.login);
+          localStorage.setItem("userData", JSON.stringify(response.data.user));
+
+          this.$root.username = response.data.user.login || response.data.user.name || "User";
+
+          this.$router.push("/home");
         } else {
-          this.error = "Произошла ошибка при попытке входа. Пожалуйста, попробуйте снова.";
+          throw new Error("Неполные данные пользователя в ответе сервера");
         }
+      } catch (err) {
+        console.error("Ошибка входа:", err);
+        this.error = err.response?.data?.message || "Ошибка авторизации";
       }
     },
   },
