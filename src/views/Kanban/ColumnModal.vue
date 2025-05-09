@@ -69,7 +69,7 @@ export default {
         const token = localStorage.getItem('authToken');
         if (this.mode === 'create') {
           await axios.post(
-              'http://localhost:8083/api/kanban-columns',
+              'https://planer-service.onrender.com/api/kanban-columns',
               null,
               {
                 params: {
@@ -83,7 +83,7 @@ export default {
           );
         } else {
           await axios.put(
-              `http://localhost:8083/api/kanban-columns/${this.columnId}`,
+              `https://planer-service.onrender.com/api/kanban-columns/${this.columnId}`,
               null,
               {
                 params: {
@@ -107,7 +107,7 @@ export default {
       try {
         const token = localStorage.getItem('authToken');
         await axios.delete(
-            `http://localhost:8083/api/kanban-columns/${this.columnId}`,
+            `https://planer-service.onrender.com/api/kanban-columns/${this.columnId}`,
             {
               params: {
                 projectId: this.projectId

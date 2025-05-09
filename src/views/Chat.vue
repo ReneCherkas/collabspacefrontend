@@ -315,7 +315,7 @@ export default {
         if (!currentChat) return;
 
         const response = await fetch(
-            `http://localhost:8086/api/chat/messages?${currentChat.isGroup ? 'groupId' : 'chatId'}=${this.currentChatId}&currentUserId=${this.userId}`,
+            `https://messenger-service-bjgt.onrender.com/api/chat/messages?${currentChat.isGroup ? 'groupId' : 'chatId'}=${this.currentChatId}&currentUserId=${this.userId}`,
             {headers: {'Authorization': `Bearer ${token}`}}
         );
 
@@ -387,13 +387,13 @@ export default {
 
         // 1. Загружаем личные чаты
         const personalResponse = await fetch(
-            `http://localhost:8086/api/chat/list?userId=${this.userId}`,
+            `https://messenger-service-bjgt.onrender.com/api/chat/list?userId=${this.userId}`,
             { headers: {'Authorization': `Bearer ${token}`} }
         );
 
         // 2. Загружаем групповые чаты
         const groupResponse = await fetch(
-            `http://localhost:8086/api/chat/group-list?userId=${this.userId}`,
+            `https://messenger-service-bjgt.onrender.com/api/chat/group-list?userId=${this.userId}`,
             { headers: {'Authorization': `Bearer ${token}`} }
         );
 
@@ -414,7 +414,7 @@ export default {
           try {
             // Загружаем аватар пользователя
             const profileResponse = await fetch(
-                `http://localhost:8081/api/auth/user-profile/${otherUserId}`,
+                `https://auth-service-gkie.onrender.com/api/auth/user-profile/${otherUserId}`,
                 { headers: {'Authorization': `Bearer ${token}`}
                 });
 
@@ -427,7 +427,7 @@ export default {
 
             // Загружаем последнее сообщение (с сортировкой по убыванию даты)
             const messagesResponse = await fetch(
-                `http://localhost:8086/api/chat/messages?chatId=${chat.id}&currentUserId=${this.userId}&limit=1&sort=timestamp,desc`,
+                `https://messenger-service-bjgt.onrender.com/api/chat/messages?chatId=${chat.id}&currentUserId=${this.userId}&limit=1&sort=timestamp,desc`,
                 { headers: {'Authorization': `Bearer ${token}`} }
             );
 
@@ -474,7 +474,7 @@ export default {
           try {
             // Загружаем последнее сообщение (с сортировкой по убыванию даты)
             const messagesResponse = await fetch(
-                `http://localhost:8086/api/chat/messages?groupId=${chat.id}&currentUserId=${this.userId}&limit=1&sort=timestamp,desc`,
+                `https://messenger-service-bjgt.onrender.com/api/chat/messages?groupId=${chat.id}&currentUserId=${this.userId}&limit=1&sort=timestamp,desc`,
                 { headers: {'Authorization': `Bearer ${token}`} }
             );
 
@@ -544,7 +544,7 @@ export default {
         return;
       }
 
-      this.socket = new SockJS('http://localhost:8086/ws');
+      this.socket = new SockJS('https://messenger-service-bjgt.onrender.com/ws');
       this.stompClient = Stomp.over(this.socket);
 
       const headers = {
@@ -700,7 +700,7 @@ export default {
         }
 
         const response = await fetch(
-            `http://localhost:8086/api/chat/messages?${currentChat.isGroup ? 'groupId' : 'chatId'}=${chatId}&currentUserId=${this.userId}`,
+            `https://messenger-service-bjgt.onrender.com/api/chat/messages?${currentChat.isGroup ? 'groupId' : 'chatId'}=${chatId}&currentUserId=${this.userId}`,
             {headers: {'Authorization': `Bearer ${token}`}}
         );
 
@@ -817,7 +817,7 @@ export default {
       try {
         const token = localStorage.getItem('authToken');
         const response = await fetch(
-            `http://localhost:8086/api/chat/search-users?query=${encodeURIComponent(this.userSearchQuery)}`,
+            `https://messenger-service-bjgt.onrender.com/api/chat/search-users?query=${encodeURIComponent(this.userSearchQuery)}`,
             {headers: {'Authorization': `Bearer ${token}`}}
         );
 
@@ -830,7 +830,7 @@ export default {
           let avatarUrl = this.defaultAvatar;
 
           try {
-            const profileResponse = await fetch(`http://localhost:8081/api/auth/user-profile/${user.id}`, {
+            const profileResponse = await fetch(`https://auth-service-gkie.onrender.com/api/auth/user-profile/${user.id}`, {
               headers: {'Authorization': `Bearer ${token}`}
             });
 
@@ -877,7 +877,7 @@ export default {
         // 3. Если чата нет - создаем новый
         console.log("Отправка запроса на создание чата с токеном:", token);
 
-        const response = await fetch('http://localhost:8086/api/chat/create', {
+        const response = await fetch('https://messenger-service-bjgt.onrender.com/api/chat/create', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -924,7 +924,7 @@ export default {
           throw new Error("Должно быть минимум 2 участника");
         }
 
-        const response = await fetch('http://localhost:8086/api/chat/create-group', {
+        const response = await fetch('https://messenger-service-bjgt.onrender.com/api/chat/create-group', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -1035,14 +1035,14 @@ export default {
     async loadCurrentUserAvatar() {
       try {
         const token = localStorage.getItem('authToken');
-        const response = await fetch('http://localhost:8081/api/auth/profile', {
+        const response = await fetch('https://auth-service-gkie.onrender.com/api/auth/profile', {
           headers: {'Authorization': `Bearer ${token}`}
         });
 
         if (response.ok) {
           const profileData = await response.json();
           this.userAvatars[this.userId] = profileData.photo
-              ? `http://localhost:8081${profileData.photo}`
+              ? `https://auth-service-gkie.onrender.com${profileData.photo}`
               : this.defaultAvatar;
         }
       } catch (error) {
@@ -1085,7 +1085,7 @@ export default {
     async deleteChat(chatId) {
       try {
         const token = localStorage.getItem('authToken');
-        const response = await fetch(`http://localhost:8086/api/chat/delete?chatId=${chatId}`, {
+        const response = await fetch(`https://messenger-service-bjgt.onrender.com/api/chat/delete?chatId=${chatId}`, {
           method: 'DELETE',
           headers: {
             'Authorization': `Bearer ${token}`
@@ -1137,7 +1137,7 @@ export default {
           throw new Error('Токен авторизации не найден');
         }
 
-        const response = await fetch(`http://localhost:8086/api/chat/messages/${message.id}`, {
+        const response = await fetch(`https://messenger-service-bjgt.onrender.com/api/chat/messages/${message.id}`, {
           method: 'DELETE',
           headers: {
             'Authorization': `Bearer ${token}`
@@ -1191,7 +1191,7 @@ export default {
           throw new Error('Refresh token не найден');
         }
 
-        const response = await fetch('http://localhost:8081/api/auth/refresh', {
+        const response = await fetch('https://auth-service-gkie.onrender.com/api/auth/refresh', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'

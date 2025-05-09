@@ -135,7 +135,7 @@ export default {
         try {
           const token = localStorage.getItem('authToken');
           await axios.delete(
-              `http://localhost:8083/api/tasks/${this.task.id}`,
+              `https://planer-service.onrender.com/api/tasks/${this.task.id}`,
               { headers: { 'Authorization': `Bearer ${token}` } }
           );
           this.$emit('deleted');
@@ -166,7 +166,7 @@ export default {
         const token = localStorage.getItem('authToken');
         const login = localStorage.getItem('userLogin');
         const response = await axios.get(
-            `http://localhost:8083/api/labels/${login}`,
+            `https://planer-service.onrender.com/api/labels/${login}`,
             { headers: { 'Authorization': `Bearer ${token}` } }
         );
         this.userLabels = response.data;
@@ -192,7 +192,7 @@ export default {
       try {
         const token = localStorage.getItem('authToken');
         const response = await axios.get(
-            `http://localhost:8086/api/chat/search-users?query=${encodeURIComponent(this.userSearchQuery)}`,
+            `https://messenger-service-bjgt.onrender.com/api/chat/search-users?query=${encodeURIComponent(this.userSearchQuery)}`,
             { headers: { 'Authorization': `Bearer ${token}` } }
         );
 
@@ -201,7 +201,7 @@ export default {
             .map(user => ({
               id: user.id,
               name: user.displayName || user.login,
-              avatar: user.photoPath ? `http://localhost:8081${user.photoPath}` : null
+              avatar: user.photoPath ? `https://auth-service-gkie.onrender.com${user.photoPath}` : null
             }))
             .filter(user =>
                 !this.form.assignees.some(a => a.id === user.id) &&
@@ -230,7 +230,7 @@ export default {
       try {
         const token = localStorage.getItem('authToken');
         await axios.delete(
-            `http://localhost:8083/api/labels/${labelId}`,
+            `https://planer-service.onrender.com/api/labels/${labelId}`,
             { headers: { 'Authorization': `Bearer ${token}` } }
         );
         this.userLabels = this.userLabels.filter(label => label.id !== labelId);

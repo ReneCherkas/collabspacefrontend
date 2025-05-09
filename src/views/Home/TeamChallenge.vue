@@ -163,7 +163,7 @@ export default {
         const token = localStorage.getItem('authToken');
         const userId = localStorage.getItem('userId');
 
-        const response = await axios.get("http://localhost:8084/api/challenges/user", {
+        const response = await axios.get("https://challenge-service-wwnq.onrender.com/api/challenges/user", {
           headers: {
             'Authorization': `Bearer ${token}`,
             'X-User-Id': userId
@@ -194,7 +194,7 @@ export default {
         const userId = localStorage.getItem('userId');
 
         const challengeResponse = await axios.get(
-            `http://localhost:8084/api/challenges/${this.selectedChallenge}`,
+            `https://challenge-service-wwnq.onrender.com/api/challenges/${this.selectedChallenge}`,
             {
               headers: {
                 'Authorization': `Bearer ${token}`,
@@ -206,7 +206,7 @@ export default {
         this.selectedChallengeData = challengeResponse.data;
 
         const xpResponse = await axios.get(
-            `http://localhost:8084/api/challenges/${this.selectedChallenge}/teams/progress`,
+            `https://challenge-service-wwnq.onrender.com/api/challenges/${this.selectedChallenge}/teams/progress`,
             {
               headers: {
                 'Authorization': `Bearer ${token}`,
@@ -256,7 +256,7 @@ export default {
       try {
         const token = localStorage.getItem('authToken');
         const response = await axios.get(
-            `http://localhost:8086/api/chat/search-users?query=${encodeURIComponent(query)}`,
+            `https://messenger-service-bjgt.onrender.com/api/chat/search-users?query=${encodeURIComponent(query)}`,
             { headers: { 'Authorization': `Bearer ${token}` } }
         );
 
@@ -264,7 +264,7 @@ export default {
             .map(user => ({
               id: user.id,
               name: user.displayName || user.login,
-              avatar: user.photoPath ? `http://localhost:8081${user.photoPath}` : null
+              avatar: user.photoPath ? `https://auth-service-gkie.onrender.com${user.photoPath}` : null
             }))
             .filter(user => !this.newChallenge.participants.some(p => p.id === user.id));
         console.log(this.participantSearchResults)
@@ -335,7 +335,7 @@ export default {
         };
 
         const response = await axios.post(
-            "http://localhost:8084/api/challenges",
+            "https://challenge-service-wwnq.onrender.com/api/challenges",
             challengeData,
             { headers: { 'Authorization': `Bearer ${token}`, 'X-User-Id': userId } }
         );

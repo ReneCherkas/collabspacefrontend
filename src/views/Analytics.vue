@@ -513,7 +513,7 @@ export default {
         }
 
         // Load tasks
-        const tasksResponse = await fetch(`http://localhost:8083/api/tasks/${login}`, {
+        const tasksResponse = await fetch(`https://planer-service.onrender.com/api/tasks/${login}`, {
           method: 'GET',
           headers: {
             'Authorization': `Bearer ${token}`
@@ -521,7 +521,7 @@ export default {
         });
 
         // Load projects - ensure correct URL and headers
-        const projectsResponse = await fetch(`http://localhost:8084/api/projects/user`, {
+        const projectsResponse = await fetch(`https://collabspace-7r1k.onrender.com/api/projects/user`, {
           method: 'GET',
           headers: {
             'Authorization': `Bearer ${token}`,
@@ -595,7 +595,7 @@ export default {
     async getProjectById(projectId) {
       try {
         const token = localStorage.getItem('authToken');
-        const response = await fetch(`http://localhost:8084/api/projects/analytics/${projectId}`, {
+        const response = await fetch(`https://collabspace-7r1k.onrender.com/api/projects/analytics/${projectId}`, {
           method: 'GET',
           headers: {
             'Authorization': `Bearer ${token}`
@@ -617,7 +617,7 @@ export default {
 
       try {
         const token = localStorage.getItem('authToken');
-        const response = await fetch(`http://localhost:8084/api/projects/${projectId}`, {
+        const response = await fetch(`https://collabspace-7r1k.onrender.com/api/projects/${projectId}`, {
           method: 'GET',
           headers: {
             'Authorization': `Bearer ${token}`

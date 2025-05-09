@@ -169,7 +169,7 @@ export default {
         const token = localStorage.getItem('authToken');
         const userId = localStorage.getItem('userId');
 
-        const response = await axios.get("http://localhost:8084/api/projects/user", {
+        const response = await axios.get("https://collabspace-7r1k.onrender.com/api/projects/user", {
           headers: {
             'Authorization': `Bearer ${token}`,
             'X-User-Id': userId
@@ -187,7 +187,7 @@ export default {
       try {
         const token = localStorage.getItem('authToken');
         const response = await axios.get(
-            `http://localhost:8083/api/kanban-columns/project/${selectedProject.value}`,
+            `https://planer-service.onrender.com/api/kanban-columns/project/${selectedProject.value}`,
             { headers: { 'Authorization': `Bearer ${token}` } }
         );
 
@@ -209,7 +209,7 @@ export default {
       try {
         const token = localStorage.getItem('authToken');
         const response = await axios.get(
-            `http://localhost:8083/api/tasks/kanban/${selectedProject.value}`,
+            `https://planer-service.onrender.com/api/tasks/kanban/${selectedProject.value}`,
             { headers: { 'Authorization': `Bearer ${token}` } }
         );
 
@@ -252,7 +252,7 @@ export default {
         const token = localStorage.getItem('authToken');
         const userId = localStorage.getItem('userId');
         const response = await axios.get(
-            `http://localhost:8084/api/projects/${selectedProject.value}`,
+            `https://collabspace-7r1k.onrender.com/api/projects/${selectedProject.value}`,
             {
               headers: {
                 'Authorization': `Bearer ${token}`,
@@ -352,7 +352,7 @@ export default {
       try {
         const token = localStorage.getItem('authToken');
         await axios.put(
-            `http://localhost:8083/api/kanban-columns/reorder/${this.selectedProject}`,
+            `https://planer-service.onrender.com/api/kanban-columns/reorder/${this.selectedProject}`,
             this.columns.map(c => c.id),
             { headers: { 'Authorization': `Bearer ${token}` } }
         );
@@ -387,7 +387,7 @@ export default {
       try {
         const token = localStorage.getItem('authToken');
         await axios.patch(
-            `http://localhost:8083/api/tasks/${task.id}/kanban/status`,
+            `https://planer-service.onrender.com/api/tasks/${task.id}/kanban/status`,
             { kanbanStatus: newStatus },
             {
               headers: {
@@ -414,7 +414,7 @@ export default {
       try {
         const token = localStorage.getItem('authToken');
         await axios.post(
-            'http://localhost:8083/api/labels',
+            'https://planer-service.onrender.com/api/labels',
             this.newLabel,
             { headers: { 'Authorization': `Bearer ${token}` } }
         );
@@ -449,14 +449,14 @@ export default {
         let response;
         if (this.editingTask && this.editingTask.id) {
           response = await axios.patch(
-              `http://localhost:8083/api/tasks/${this.editingTask.id}`,
+              `https://planer-service.onrender.com/api/tasks/${this.editingTask.id}`,
               taskToSend,
               { headers: { 'Authorization': `Bearer ${token}` } }
           );
         } else {
           taskToSend.login = localStorage.getItem('userLogin');
           response = await axios.post(
-              `http://localhost:8083/api/tasks/kanban`,
+              `https://planer-service.onrender.com/api/tasks/kanban`,
               taskToSend,
               { headers: { 'Authorization': `Bearer ${token}` } }
           );

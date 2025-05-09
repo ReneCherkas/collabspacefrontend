@@ -467,7 +467,7 @@ export default {
             task.closedAt = null;
           }
 
-          await fetch(`http://localhost:8084/api/challenges/update-progress/${userId}`, {
+          await fetch(`https://challenge-service-wwnq.onrender.com/api/challenges/update-progress/${userId}`, {
             method: 'POST',
             headers: {
               'Authorization': `Bearer ${token}`

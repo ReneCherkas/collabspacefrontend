@@ -238,14 +238,14 @@ export default {
       try {
         const token = localStorage.getItem('authToken');
         const response = await axios.get(
-            `http://localhost:8086/api/chat/search-users?query=${encodeURIComponent(query)}`,
+            `https://messenger-service-bjgt.onrender.com/api/chat/search-users?query=${encodeURIComponent(query)}`,
             {headers: {'Authorization': `Bearer ${token}`}}
         );
 
         const users = response.data.map(user => ({
           id: user.id,
           name: user.displayName || user.login,
-          avatar: user.photoPath ? `http://localhost:8081${user.photoPath}` : null
+          avatar: user.photoPath ? `https://auth-service-gkie.onrender.com${user.photoPath}` : null
         }));
 
         const filteredUsers = users.filter(user => {
@@ -307,7 +307,7 @@ export default {
         const token = localStorage.getItem('authToken');
         const userId = localStorage.getItem('userId');
 
-        const response = await axios.get("http://localhost:8084/api/projects/user", {
+        const response = await axios.get("https://collabspace-7r1k.onrender.com/api/projects/user", {
           headers: {
             'Authorization': `Bearer ${token}`,
             'X-User-Id': userId
@@ -326,7 +326,7 @@ export default {
         const token = localStorage.getItem('authToken');
         const userId = localStorage.getItem('userId');
         const response = await axios.get(
-            `http://localhost:8084/api/projects/${selectedProject.value}`,
+            `https://collabspace-7r1k.onrender.com/api/projects/${selectedProject.value}`,
             {
               headers: {
                 'Authorization': `Bearer ${token}`,
@@ -388,7 +388,7 @@ export default {
 
         const token = localStorage.getItem('authToken');
         const response = await axios.post(
-            "http://localhost:8084/api/projects",
+            "https://collabspace-7r1k.onrender.com/api/projects",
             projectData,
             { headers: { 'Authorization': `Bearer ${token}` } }
         );
@@ -419,7 +419,7 @@ export default {
         const userId = localStorage.getItem('userId');
 
         const response = await axios.put(
-            `http://localhost:8084/api/projects/${selectedProject.value}`,
+            `https://collabspace-7r1k.onrender.com/api/projects/${selectedProject.value}`,
             {
               title: editProjectData.value.title,
               description: editProjectData.value.description,
@@ -454,7 +454,7 @@ export default {
       try {
         const token = localStorage.getItem('authToken');
         await axios.delete(
-            `http://localhost:8084/api/projects/${selectedProject.value}/users/${userId}`,
+            `https://collabspace-7r1k.onrender.com/api/projects/${selectedProject.value}/users/${userId}`,
             {
               headers: {
                 'Authorization': `Bearer ${token}`,
@@ -483,7 +483,7 @@ export default {
         const userId = localStorage.getItem('userId');
 
         await axios.delete(
-            `http://localhost:8084/api/projects/${selectedProject.value}`,
+            `https://collabspace-7r1k.onrender.com/api/projects/${selectedProject.value}`,
             {
               headers: {
                 'Authorization': `Bearer ${token}`,
@@ -515,7 +515,7 @@ export default {
         }
 
         await axios.post(
-            `http://localhost:8084/api/projects/${selectedProject.value}/users/${user.id}`,
+            `https://collabspace-7r1k.onrender.com/api/projects/${selectedProject.value}/users/${user.id}`,
             { role: type },
             {
               headers: {
