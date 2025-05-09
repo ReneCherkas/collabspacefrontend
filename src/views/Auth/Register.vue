@@ -3,6 +3,7 @@
     <div class="login-container">
       <h2>Регистрация</h2>
       <form @submit.prevent="register" class="login-form">
+        <input v-model="name" type="text" placeholder="Имя" required class="input-field"/>
         <input v-model="login" type="text" placeholder="Логин" required class="input-field"/>
         <input v-model="password" type="password" placeholder="Пароль" required class="input-field"/>
         <button type="submit" class="submit-btn">Зарегистрироваться</button>
@@ -19,6 +20,7 @@ import axios from "axios";
 export default {
   data() {
     return {
+      name: "",
       login: "",
       password: "",
       error: ""
@@ -30,6 +32,11 @@ export default {
 
       if (!this.login || !this.password) {
         this.error = "Пожалуйста, заполните все поля.";
+        return;
+      }
+
+      if (!/^[А-Яа-яA-Za-z\s-]{2,50}$/.test(this.name)) {
+        this.error = "Имя должно содержать только буквы, пробелы и дефисы, от 2 до 50 символов";
         return;
       }
 
@@ -52,6 +59,7 @@ export default {
 
       try {
         const response = await axios.post("http://localhost:8081/api/auth/register", {
+          name: this.name,
           login: this.login,
           password: this.password,
         });
