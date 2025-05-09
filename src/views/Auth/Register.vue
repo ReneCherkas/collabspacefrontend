@@ -58,7 +58,7 @@ export default {
       }
 
       try {
-        const response = await axios.post("http://localhost:8081/api/auth/register", {
+        const response = await axios.post("https://auth-service-gkie.onrender.com/api/auth/register", {
           name: this.name,
           login: this.login,
           password: this.password,
