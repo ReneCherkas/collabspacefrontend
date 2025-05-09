@@ -155,7 +155,7 @@ export default {
         const login = localStorage.getItem('userLogin');
 
         const regularTasksResponse = await axios.get(
-            `http://localhost:8083/api/tasks/${login}?status=Close`,
+            `https://planer-service.onrender.com/api/tasks/${login}?status=Close`,
             {headers: {'Authorization': `Bearer ${token}`}}
         );
 

@@ -9,4 +9,4 @@ createApp(App)
     .use(router)
     .mount("#app");
 
-axios.defaults.baseURL = "http://localhost:8081/api";
+axios.defaults.baseURL = "https://auth-service-gkie.onrender.com/api";

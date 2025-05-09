@@ -193,7 +193,7 @@ export default {
           return;
         }
 
-        const response = await axios.get("http://localhost:8081/api/auth/profile", {
+        const response = await axios.get("https://auth-service-gkie.onrender.com/api/auth/profile", {
           headers: {
             Authorization: `Bearer ${token}`,
             'Cache-Control': 'no-cache'
@@ -219,7 +219,7 @@ export default {
         if (response.data.photo) {
           this.photoPreview = response.data.photo.startsWith('http')
               ? response.data.photo
-              : `http://localhost:8081${response.data.photo}`;
+              : `https://auth-service-gkie.onrender.com${response.data.photo}`;
         } else {
           this.photoPreview = null;
         }
@@ -265,7 +265,7 @@ export default {
 
       if (fieldName === 'photo') {
         this.photoPreview = this.originalData.photo
-            ? `http://localhost:8081${this.originalData.photo}`
+            ? `https://auth-service-gkie.onrender.com${this.originalData.photo}`
             : null;
       }
     },

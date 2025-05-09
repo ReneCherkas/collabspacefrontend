@@ -355,7 +355,7 @@ export default {
 
       try {
         const token = localStorage.getItem('authToken');
-        const response = await fetch(`http://localhost:8083/api/tasks/${taskId}`, {
+        const response = await fetch(`https://planer-service.onrender.com/api/tasks/${taskId}`, {
           method: 'PATCH',
           headers: {
             'Content-Type': 'application/json',
@@ -381,7 +381,7 @@ export default {
         const token = localStorage.getItem('authToken');
         const login = localStorage.getItem('userLogin');
 
-        const response = await fetch(`http://localhost:8083/api/labels/${login}`, {
+        const response = await fetch(`https://planer-service.onrender.com/api/labels/${login}`, {
           method: 'GET',
           headers: {
             'Authorization': `Bearer ${token}`
@@ -410,7 +410,7 @@ export default {
     async saveLabel() {
       try {
         const token = localStorage.getItem('authToken');
-        const response = await fetch('http://localhost:8083/api/labels', {
+        const response = await fetch('https://planer-service.onrender.com/api/labels', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -449,7 +449,7 @@ export default {
         const userId = localStorage.getItem('userId');
         const newStatus = task.status === 'Open' ? 'Close' : 'Open';
 
-        const response = await fetch(`http://localhost:8083/api/tasks/${task.id}/status`, {
+        const response = await fetch(`https://planer-service.onrender.com/api/tasks/${task.id}/status`, {
           method: 'PATCH',
           headers: {
             'Authorization': `Bearer ${token}`,
@@ -507,7 +507,7 @@ export default {
         const userName = userData.name;
 
         // Получаем обычные задачи
-        const tasksResponse = await fetch(`http://localhost:8083/api/tasks/${login}`, {
+        const tasksResponse = await fetch(`https://planer-service.onrender.com/api/tasks/${login}`, {
           method: 'GET',
           headers: {
             'Authorization': `Bearer ${token}`
@@ -515,7 +515,7 @@ export default {
         });
 
         // Получаем Kanban-задачи, где пользователь является ответственным
-        const kanbanTasksResponse = await fetch(`http://localhost:8083/api/tasks/assignee/${userName}`, {
+        const kanbanTasksResponse = await fetch(`https://planer-service.onrender.com/api/tasks/assignee/${userName}`, {
           method: 'GET',
           headers: {
             'Authorization': `Bearer ${token}`
@@ -595,7 +595,7 @@ export default {
     async deleteLabel(labelId) {
       try {
         const token = localStorage.getItem('authToken');
-        const response = await fetch(`http://localhost:8083/api/labels/${labelId}`, {
+        const response = await fetch(`https://planer-service.onrender.com/api/labels/${labelId}`, {
           method: 'DELETE',
           headers: {
             'Authorization': `Bearer ${token}`
@@ -730,7 +730,7 @@ export default {
         // Остальной код метода остается без изменений
         let response;
         if (this.editingTaskId) {
-          response = await fetch(`http://localhost:8083/api/tasks/${this.editingTaskId}`, {
+          response = await fetch(`https://planer-service.onrender.com/api/tasks/${this.editingTaskId}`, {
             method: 'PATCH',
             headers: {
               'Content-Type': 'application/json',
@@ -739,7 +739,7 @@ export default {
             body: JSON.stringify(taskData)
           });
         } else {
-          response = await fetch('http://localhost:8083/api/tasks', {
+          response = await fetch('https://planer-service.onrender.com/api/tasks', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
@@ -767,7 +767,7 @@ export default {
 
       try {
         const token = localStorage.getItem('authToken');
-        const response = await fetch(`http://localhost:8083/api/tasks/${this.editingTaskId}`, {
+        const response = await fetch(`https://planer-service.onrender.com/api/tasks/${this.editingTaskId}`, {
           method: 'DELETE',
           headers: {
             'Authorization': `Bearer ${token}`
