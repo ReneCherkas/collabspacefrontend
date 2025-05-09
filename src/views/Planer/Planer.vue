@@ -491,7 +491,7 @@ export default {
         const today = new Date().toISOString().split('T')[0];
 
         // Получаем имя пользователя
-        const userResponse = await fetch(`http://localhost:8081/api/auth/by-login/${login}`, {
+        const userResponse = await fetch(`https://auth-service-gkie.onrender.com/api/auth/by-login/${login}`, {
           method: 'GET',
           headers: {
             'Authorization': `Bearer ${token}`
